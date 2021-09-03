@@ -721,6 +721,8 @@ public:
     surfPointsFlat->clear();
     surfPointsLessFlat->clear();
 
+    const std::vector<unsigned int> & column_index = segInfo.segmentedCloudColInd;
+
     for (int i = 0; i < N_SCAN; i++) {
 
       surfPointsLessFlatScan->clear();
@@ -758,21 +760,15 @@ public:
 
             cloudNeighborPicked[ind] = 1;
             for (int l = 1; l <= 5; l++) {
-              int columnDiff =
-                std::abs(
-                int(segInfo.segmentedCloudColInd[ind + l] -
-                segInfo.segmentedCloudColInd[ind + l - 1]));
-              if (columnDiff > 10) {
+              const int d = std::abs(int(column_index[ind + l] - column_index[ind + l - 1]));
+              if (d > 10) {
                 break;
               }
               cloudNeighborPicked[ind + l] = 1;
             }
             for (int l = -1; l >= -5; l--) {
-              int columnDiff =
-                std::abs(
-                int(segInfo.segmentedCloudColInd[ind + l] -
-                segInfo.segmentedCloudColInd[ind + l + 1]));
-              if (columnDiff > 10) {
+              const int d = std::abs(int(column_index[ind + l] - column_index[ind + l + 1]));
+              if (d > 10) {
                 break;
               }
               cloudNeighborPicked[ind + l] = 1;
@@ -799,11 +795,8 @@ public:
             cloudNeighborPicked[ind] = 1;
             for (int l = 1; l <= 5; l++) {
 
-              int columnDiff =
-                std::abs(
-                int(segInfo.segmentedCloudColInd[ind + l] -
-                segInfo.segmentedCloudColInd[ind + l - 1]));
-              if (columnDiff > 10) {
+              const int d = std::abs(int(column_index[ind + l] - column_index[ind + l - 1]));
+              if (d > 10) {
                 break;
               }
 
@@ -811,11 +804,8 @@ public:
             }
             for (int l = -1; l >= -5; l--) {
 
-              int columnDiff =
-                std::abs(
-                int(segInfo.segmentedCloudColInd[ind + l] -
-                segInfo.segmentedCloudColInd[ind + l + 1]));
-              if (columnDiff > 10) {
+              const int d = std::abs(int(column_index[ind + l] - column_index[ind + l + 1]));
+              if (d > 10) {
                 break;
               }
 
